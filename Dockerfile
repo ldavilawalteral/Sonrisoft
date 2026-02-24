@@ -25,5 +25,5 @@ RUN chmod -R 775 storage bootstrap/cache
 # Exponer puerto
 EXPOSE 10000
 
-# Comando de inicio
-CMD php -S 0.0.0.0:$PORT -t public
+# Comando de inicio (Aquí está el cambio para que migre automáticamente)
+CMD php artisan migrate --force && php -S 0.0.0.0:$PORT -t public
