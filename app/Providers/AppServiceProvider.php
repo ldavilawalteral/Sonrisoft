@@ -1,3 +1,5 @@
+use Illuminate\Support\Facades\URL;
+
 <?php
 
 namespace App\Providers;
@@ -19,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Illuminate\Support\Facades\Gate::define('admin-only', function ($user) {
-            return $user->isAdmin();
-        });
+    if (env('APP_ENV') === 'production') {
+        URL::forceScheme('https');
+    }
     }
 }
