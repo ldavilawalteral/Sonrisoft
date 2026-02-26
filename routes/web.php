@@ -64,3 +64,16 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class , 'index'])->name('home');
+
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/instalar-datos', function () {
+    try {
+        Artisan::call('db:seed', ['--force' => true]);
+        return "¡Datos base (Seeders) instalados correctamente! Ya puedes ir al Login.";
+    } catch (\Exception $e) {
+        return "Hubo un error instalando los datos: " . $e->getMessage();
+    }
+});
+
